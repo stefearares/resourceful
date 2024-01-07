@@ -46,7 +46,14 @@ if [ "$tester" == "resourceful" ]; then
 	pack=$(apt-mark showmanual | wc -l)
 	printf "Manually installed packages: %s\n" "$pack" >> history;
 	network=$(speedtest-cli --simple)
-	printf "%s\n" "$network" >> history;
+	printf "%s\n" "$network" >> history; 
+ 	echo -n "I/O: " >> history;
+        ios=$(iostat -d | awk '$1 ~ /^(nvme|sda)/ {print $1}')
+        if [ -n "$ios" ]; then
+        formatted_line=$(echo "$ios" | tr '\n' ', ' | sed 's/,$/./')
+        echo -n "$formatted_line" >> history;
+        fi
+
 else
         mkdir resourceful;
         mv proiect.sh resourceful;
@@ -64,5 +71,14 @@ else
 	printf "Used memory: %s KBs / Total: %s KBs\n" "$usedmem" "$totalmem" >> history;
 	pack=$(apt-mark showmanual | wc -l)
         printf "Manually installed packages: %s\n" "$pack" >> history;
+	network=$(speedtest-cli --simple)
+	printf "%s\n" "$network" >> history; 
+ 	echo -n "I/O: " >> history;
+        ios=$(iostat -d | awk '$1 ~ /^(nvme|sda)/ {print $1}')
+        if [ -n "$ios" ]; then
+        formatted_line=$(echo "$ios" | tr '\n' ', ' | sed 's/,$/./')
+        echo -n "$formatted_line" >> history;
+        fi
+
 
 fi
