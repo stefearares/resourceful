@@ -1,10 +1,14 @@
 #!/bin/bash
 
+
+
 command_exists() {
 
   command -v "$1" >/dev/null 2>&1
 
 }
+
+
 
 if ! command_exists mpstat; then
 
@@ -16,6 +20,7 @@ if ! command_exists mpstat; then
 
      sudo apt-get install sysstat 
 
+    
 
   else
 
@@ -147,6 +152,8 @@ else
 
 fi
 
+	purple='\033[0;35m'
+
 	green='\033[0;32m'
 
 	red='\033[0;31m'
@@ -155,19 +162,57 @@ fi
 
 	nocolor='\033[0m'
 
+        cpu_round=$(echo "$cpu" | awk '{print int($1)}')
 
+        totalmem=$((totalmem))
+
+ 	usedmem=$((usedmem))
+
+	mem_perc=$((usedmem * 100 / totalmem))
 
         echo "$moment";
 
-        printf "User: %s\n" "$who";
+        printf "User: ${purple}%s${nocolor}\n" "$who";
 
         printf "Current Uptime: %s\n" "$up";
 
-       	printf "CPU usage: %s%%\n" "$cpu";
+	if [ "$cpu_round" -le 33 ]; then
 
-        printf "Used memory: %s KBs / Total: %s KBs\n" "$usedmem" "$totalmem";
+       	printf "CPU usage: ${green}%d%%${nocolor}\n" "$cpu_round";
 
-        printf "Manually installed packages: %s\n" "$pack";
+	fi
+
+	if [ "$cpu_round" -le 66 ] && [ "$cpu_round" -gt 33 ]; then
+
+  	printf "CPU usage: ${yellow}%d%%${nocolor}\n" "$cpu_round"
+
+	fi	
+
+	if [ "$cpu_round" -gt 66 ]; then
+
+        printf "CPU usage: ${red}%d%%${nocolor}\n" "$cpu_round";
+
+        fi
+
+	if [ "$mem_perc" -le 33 ]; then
+
+		printf "Used memory: ${green}%s${nocolor} ${green}KBs${nocolor}(${green}%d%%${nocolor}) / Total: %s KBs\n" "$usedmem" "$mem_perc" "$totalmem";
+
+	fi
+
+	if [ "$mem_perc" -le 66 ] && [ "$mem_perc" -gt 33 ]; then
+
+		printf "Used memory: ${yellow}%s${nocolor} ${yellow}KBs${nocolor}(${yellow}%d%%${nocolor}) / Total: %s KBs\n" "$usedmem" "$mem_perc" "$totalmem";
+
+        fi
+
+	if [ "$mem_perc" -gt 66 ]; then
+
+		printf "Used memory: ${red}%s${nocolor} ${red}KBs${nocolor}(${red}%s${nocolor}) / Total: %s KBs\n" "$usedmem" "$mem_perc" "$totalmem";
+
+        fi
+
+	printf "Manually installed packages: %s\n" "$pack";
 
         printf "%s\n" "$network";
 
