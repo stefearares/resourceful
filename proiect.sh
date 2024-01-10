@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 command_exists() {
   command -v "$1" >/dev/null 2>&1
@@ -52,6 +52,7 @@ if [ "$tester" == "resourceful" ]; then
         if [ -n "$ios" ]; then
         formatted_line=$(echo "$ios" | tr '\n' ', ' | sed 's/,$/./')
         echo -n "$formatted_line" >> history;
+	echo -e "\n" >> history;
         fi
 
 else
@@ -78,6 +79,7 @@ else
         if [ -n "$ios" ]; then
         formatted_line=$(echo "$ios" | tr '\n' ', ' | sed 's/,$/./')
         echo -n "$formatted_line" >> history;
+	echo -e "\n" >> history;
         fi
 
 
