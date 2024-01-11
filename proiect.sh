@@ -88,7 +88,9 @@ fi
 
 if [ "$tester" == "resourceful" ]; then
 
-        
+        if ! [ -f "history" ]; then
+                > history
+        fi
 
         echo "$moment" >> history;
 
