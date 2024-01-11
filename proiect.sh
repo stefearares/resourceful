@@ -176,6 +176,16 @@ fi
 
 	mem_perc=$((usedmem * 100 / totalmem))
 
+  	COLUMNS=$(tput cols)
+
+        title="resourceful"
+
+        subtitle="-----------"
+
+        printf "${purple}%*s${nocolor}\n" $(((${#title}+$COLUMNS)/2)) "$title"
+
+        printf "${purple}%*s${nocolor}\n" $(((${#title}+$COLUMNS)/2)) "$subtitle"
+
         echo "$moment";
 
         printf "User: ${purple}%s${nocolor}\n" "$who";
