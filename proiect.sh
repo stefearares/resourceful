@@ -12,15 +12,15 @@ command_exists() {
 
 if ! command_exists mpstat; then
 
-  echo "sysstat is not installed. 
+  echo "sysstat is not installed.
 
-	Do you want to install it? (Y/n)"
+Do you want to install it? (Y/n)"
 
   read answer
 
   if [ "$answer" == "Y" ]; then
 
-     sudo apt-get install sysstat 
+     sudo apt-get install sysstat
 
   else
 
@@ -38,7 +38,7 @@ if ! command_exists speedtest-cli; then
 
   echo "speedtest-cli is not installed.
 
-	Do you want to install it? (Y/n)"
+Do you want to install it? (Y/n)"
 
   read answer
 
@@ -58,29 +58,29 @@ fi
 
 
 
-	tester=$(pwd | rev | cut -d'/' -f1 | rev)
+tester=$(pwd | rev | cut -d'/' -f1 | rev)
 
-	moment=$(date +"Date: %D Time: %T%n");
+moment=$(date +"Date: %D Time: %T%n");
 
         who=$(whoami)
 
         up=$(uptime -p)
 
-        cpu=$(echo "100 - $(mpstat 1 1 | tail -n 1 | rev | cut -d' ' -f1 | rev | tr ',' '.')" | bc)
+        cpu=$(echo "100 - $(mpstat 1 1 | tail -n 1 | rev | cut -d' ' -f1 | rev | tr ',' '.')" | bc | tr ' ' '0')
 
         totalmem=$(free | awk '/^Mem/ {printf $2}')
 
         usedmem=$(free | awk '/^Mem/ {printf $3}')                              
 
-	pack=$(apt-mark showmanual | wc -l)
+pack=$(apt-mark showmanual | wc -l)
 
-     	network=$(speedtest-cli --simple 2>/dev/null)
+      network=$(speedtest-cli --simple 2>/dev/null)
 
-	if [ $? -ne 0 ]; then
+if [ $? -ne 0 ]; then
 
-    	network="Network: Not available."
+    network="Network: Not available."
 
-	fi
+fi
 
         ios=$(iostat -d | awk '$1 ~ /^(nvme|sda)/ {print $1}')
 
@@ -94,19 +94,19 @@ if [ "$tester" == "resourceful" ]; then
 
         echo "$moment" >> history;
 
-	printf "User: %s\n" "$who" >> history;
+printf "User: %s\n" "$who" >> history;
 
-	printf "Current Uptime: %s\n" "$up"  >> history;
+printf "Current Uptime: %s\n" "$up"  >> history;
 
         printf "CPU usage: %s%%\n" "$cpu" >> history;
 
-	printf "Used memory: %s KBs / Total: %s KBs\n" "$usedmem" "$totalmem" >> history;
+printf "Used memory: %s KBs / Total: %s KBs\n" "$usedmem" "$totalmem" >> history;
 
-	printf "Manually installed packages: %s\n" "$pack" >> history;
+printf "Manually installed packages: %s\n" "$pack" >> history;
 
-	printf "%s\n" "$network" >> history; 
+printf "%s\n" "$network" >> history;
 
- 	echo -n "I/O: " >> history;
+  echo -n "I/O: " >> history;
 
         if [ -n "$ios" ]; then
 
@@ -114,7 +114,7 @@ if [ "$tester" == "resourceful" ]; then
 
         echo -n "$formatted_line" >> history;
 
-       	echo -e "\n">> history
+        echo -e "\n">> history
 
         fi
 
@@ -136,13 +136,13 @@ else
 
         printf "CPU usage: %s%%\n" "$cpu" >> history;
 
-	printf "Used memory: %s KBs / Total: %s KBs\n" "$usedmem" "$totalmem" >> history;
+printf "Used memory: %s KBs / Total: %s KBs\n" "$usedmem" "$totalmem" >> history;
 
         printf "Manually installed packages: %s\n" "$pack" >> history;
 
-	printf "%s\n" "$network" >> history; 
+printf "%s\n" "$network" >> history;
 
- 	echo -n "I/O: " >> history;
+  echo -n "I/O: " >> history;
 
         if [ -n "$ios" ]; then
 
@@ -152,7 +152,7 @@ else
 
         echo -e "\n"  >> history;
 
-	fi
+fi
 
 
 
@@ -160,25 +160,25 @@ else
 
 fi
 
-	purple='\033[0;35m'
+purple='\033[0;35m'
 
-	green='\033[0;32m'
+green='\033[0;32m'
 
-	red='\033[0;31m'
+red='\033[0;31m'
 
-	yellow='\033[0;33m'
+yellow='\033[0;33m'
 
-	nocolor='\033[0m'
+nocolor='\033[0m'
 
         cpu_round=$(echo "$cpu" | awk '{print int($1)}')
 
         totalmem=$((totalmem))
 
- 	usedmem=$((usedmem))
+  usedmem=$((usedmem))
 
-	mem_perc=$((usedmem * 100 / totalmem))
+mem_perc=$((usedmem * 100 / totalmem))
 
-  	COLUMNS=$(tput cols)
+  COLUMNS=$(tput cols)
 
         title="resourceful"
 
@@ -194,43 +194,43 @@ fi
 
         printf "Current Uptime: %s\n" "$up";
 
-	if [ "$cpu_round" -le 33 ]; then
+if [ "$cpu_round" -le 33 ]; then
 
-       	printf "CPU usage: ${green}%d%%${nocolor}\n" "$cpu_round";
+        printf "CPU usage: ${green}%d%%${nocolor}\n" "$cpu_round";
 
-	fi
+fi
 
-	if [ "$cpu_round" -le 66 ] && [ "$cpu_round" -gt 33 ]; then
+if [ "$cpu_round" -le 66 ] && [ "$cpu_round" -gt 33 ]; then
 
-  	printf "CPU usage: ${yellow}%d%%${nocolor}\n" "$cpu_round"
+  printf "CPU usage: ${yellow}%d%%${nocolor}\n" "$cpu_round"
 
-	fi	
+fi
 
-	if [ "$cpu_round" -gt 66 ]; then
+if [ "$cpu_round" -gt 66 ]; then
 
         printf "CPU usage: ${red}%d%%${nocolor}\n" "$cpu_round";
 
         fi
 
-	if [ "$mem_perc" -le 33 ]; then
+if [ "$mem_perc" -le 33 ]; then
 
-		printf "Used memory: ${green}%s${nocolor} ${green}KBs${nocolor}(${green}%d%%${nocolor}) / Total: %s KBs\n" "$usedmem" "$mem_perc" "$totalmem";
+printf "Used memory: ${green}%s${nocolor} ${green}KBs${nocolor}(${green}%d%%${nocolor}) / Total: %s KBs\n" "$usedmem" "$mem_perc" "$totalmem";
 
-	fi
+fi
 
-	if [ "$mem_perc" -le 66 ] && [ "$mem_perc" -gt 33 ]; then
+if [ "$mem_perc" -le 66 ] && [ "$mem_perc" -gt 33 ]; then
 
-		printf "Used memory: ${yellow}%s${nocolor} ${yellow}KBs${nocolor}(${yellow}%d%%${nocolor}) / Total: %s KBs\n" "$usedmem" "$mem_perc" "$totalmem";
-
-        fi
-
-	if [ "$mem_perc" -gt 66 ]; then
-
-		printf "Used memory: ${red}%s${nocolor} ${red}KBs${nocolor}(${red}%s${nocolor}) / Total: %s KBs\n" "$usedmem" "$mem_perc" "$totalmem";
+printf "Used memory: ${yellow}%s${nocolor} ${yellow}KBs${nocolor}(${yellow}%d%%${nocolor}) / Total: %s KBs\n" "$usedmem" "$mem_perc" "$totalmem";
 
         fi
 
-	printf "Manually installed packages: %s\n" "$pack";
+if [ "$mem_perc" -gt 66 ]; then
+
+printf "Used memory: ${red}%s${nocolor} ${red}KBs${nocolor}(${red}%s${nocolor}) / Total: %s KBs\n" "$usedmem" "$mem_perc" "$totalmem";
+
+        fi
+
+printf "Manually installed packages: %s\n" "$pack";
 
         printf "%s\n" "$network";
 
@@ -244,45 +244,58 @@ fi
 
         fi
 
-	echo -e "\n";
+echo -e "\n";
 
-	
 
-	echo -e "  ${purple} CPU usage graph:${nocolor}"
+
+echo -e "  ${purple} CPU usage graph:${nocolor}"
 
 
 
         echo -e " ____________________"
 
-	
-
-	no=$(cat history | grep CPU | wc -l)
 
 
-
-	if (( $no > 2 ))
-
-	then
+no=$(cat history | grep CPU | wc -l)
 
 
 
-	cpus=$(cat history | grep CPU | tail -3 | cut -d' ' -f 3 | cut -d'.' -f1)
+if (( $no > 2 ))
+
+then
 
 
 
-	cpu1=$(echo $cpus | cut -d' ' -f1)
-
-	cpu2=$(echo $cpus | cut -d' ' -f2)
-
-	cpu3=$(echo $cpus | cut -d' ' -f3)
+cpus=$(cat history | grep CPU | tail -3 | cut -d' ' -f 3 | cut -d'.' -f1)
 
 
+cpu1=$(echo $cpus | cut -d' ' -f1)
+if (( ${#cpu1} < 1 ))
+then
+cpu1=0
+fi
 
-	if (( $cpu1 < 33 ))
+cpu2=$(echo $cpus | cut -d' ' -f2)
+if (( ${#cpu2} < 1 ))
+        then
+                cpu2=0
+        fi
 
-	then
+cpu3=$(echo $cpus | cut -d' ' -f3)
+if (( ${#cpu3} < 1 ))
+        then
+                cpu3=0
+        fi
 
-		forma1="$(echo -e "|      \n|      \n|      \n|      \n|   __ \n|  |  |\n|__|  |")"
+echo $cpu1
+echo $cpu2
+echo $cpu3
+
+if (( $cpu1 < 33 ))
+
+then
+
+forma1="$(echo -e "|      \n|      \n|      \n|      \n|   __ \n|  |  |\n|__|  |")"
 
 
 
@@ -312,69 +325,75 @@ fi
 
                 fi
 
-	fi
+fi
 
-	if (( $cpu2 < 33 ))
+if (( $cpu2 < 33 ))
 
-	then
+then
 
-		forma2="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |")"
+forma2="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |")"
 
-	else
+else
 
-		if (( $cpu2 < 66 ))
+if (( $cpu2 < 66 ))
 
-	        then
+       then
 
-        	        forma2="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |")"
+               forma2="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |")"
 
-	        else
+       else
 
-                	forma2="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |")"
+                forma2="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |")"
 
-        	fi
+        fi
 
-	fi
+fi
 
-	if (( $cpu3 < 33 ))
+if (( $cpu3 < 33 ))
 
-	then
+then
 
-        	forma3="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |__")"
+        forma3="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |__")"
 
-	else
+else
 
-		if (( $cpu3 < 66 ))
+if (( $cpu3 < 66 ))
 
-        	then
+        then
 
-        	        forma3="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |__")"
+               forma3="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |__")"
 
-	        else
+       else
 
-                	forma3="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |__")"
+                forma3="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |__")"
 
-        	fi
+        fi
 
-	fi
-
-
-
-	paste -d '' <(echo "$forma1") <(echo "$forma2") <(echo "$forma3")
-
-	else 
-
-	cpus=$(cat history | grep CPU | tail -2 | cut -d' ' -f 3 | cut -d'.' -f1)
+fi
 
 
 
-	cpu1=$(echo $cpus | cut -d' ' -f1)
+paste -d '' <(echo "$forma1") <(echo "$forma2") <(echo "$forma3")
 
-	cpu2=$(echo $cpus | cut -d' ' -f2)
+else if (( $no == 2 ))
+then
+cpus=$(cat history | grep CPU | tail -2 | cut -d' ' -f 3 | cut -d'.' -f1)
+
+cpu1=$(echo $cpus | cut -d' ' -f1)
+        if (( ${#cpu1} < 1 ))
+        then
+                cpu1=0
+        fi
+
+        cpu2=$(echo $cpus | cut -d' ' -f2)
+        if (( ${#cpu2} < 1 ))
+        then
+                cpu2=0
+        fi
 
 
 
-	if (( $cpu1 < 33 ))
+if (( $cpu1 < 33 ))
 
         then
 
@@ -382,7 +401,7 @@ fi
 
         else
 
-		if (( $cpu1 < 66 ))
+if (( $cpu1 < 66 ))
 
                 then
 
@@ -396,7 +415,7 @@ fi
 
         fi
 
-	if (( $cpu2 < 33 ))
+if (( $cpu2 < 33 ))
 
         then
 
@@ -404,7 +423,7 @@ fi
 
         else
 
-		if (( $cpu2 < 66 ))
+if (( $cpu2 < 66 ))
 
                 then
 
@@ -420,7 +439,38 @@ fi
 
 
 
-	paste -d '' <(echo "$forma1") <(echo "$forma2")
+paste -d '' <(echo "$forma1") <(echo "$forma2")
 
-	fi
 
+else
+cpu1=$(cat history | grep CPU | tail -1 | cut -d' ' -f 3 | cut -d'.' -f1)
+
+if (( ${#cpu1} < 1 ))
+      then
+                cpu1=0
+      fi
+
+if (( $cpu1 < 33 ))
+
+        then
+
+               forma1="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |")"
+
+      else
+
+                if (( $cpu1 < 66 ))
+
+               then
+
+                        forma1="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |")"
+
+                else
+
+                       forma1="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |")"
+
+               fi
+
+       fi
+
+echo "$forma1"
+fi
