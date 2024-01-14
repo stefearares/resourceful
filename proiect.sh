@@ -202,11 +202,11 @@ elif (($no == 2)); then
   fi
 
   if (($cpu2 < 33)); then
-    forma2="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |__")"
+    forma2="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |________")"
   elif (($cpu2 < 66)); then
-    forma2="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |__")"
+    forma2="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |________")"
   else
-    forma2="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |__")"
+    forma2="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |________")"
   fi
 
   paste -d '' <(echo "$forma1") <(echo "$forma2")
@@ -215,11 +215,11 @@ else
   [ ${#cpu1} -lt 1 ] && cpu1=0
 
   if (($cpu1 < 33)); then
-    forma1="$(echo -e "|      \n|      \n|      \n|      \n|   __ \n|  |  |\n|__|  |")"
+    forma1="$(echo -e "|      \n|      \n|      \n|      \n|   __ \n|  |  |\n|__|  |______________")"
   elif (($cpu1 < 66)); then
-    forma1="$(echo -e "|      \n|      \n|   __ \n|  |  |\n|  |  |\n|  |  |\n|__|  |")"
+    forma1="$(echo -e "|      \n|      \n|   __ \n|  |  |\n|  |  |\n|  |  |\n|__|  |______________")"
   else
-    forma1="$(echo -e "|   __ \n|  |  |\n|  |  |\n|  |  |\n|  |  |\n|  |  |\n|__|  |")"
+    forma1="$(echo -e "|   __ \n|  |  |\n|  |  |\n|  |  |\n|  |  |\n|  |  |\n|__|  |______________")"
   fi
 
   echo "$forma1"
@@ -270,8 +270,8 @@ if (($no2 > 2)); then
   fi
 
   paste -d '' <(echo "$forma1") <(echo "$forma2") <(echo "$forma3")
-elif ((no == 2)); then
-  cpus=$(cat history | grep CPU | tail -2 | cut -d' ' -f 3 | cut -d'.' -f1)
+elif (($no2 == 2)); then
+  cpus=$(cat history | grep memory: | rev | cut -d' ' -f1 | rev| tail -2)
 
   cpu1=$(echo $cpus | cut -d' ' -f1)
   [ ${#cpu1} -lt 1 ] && cpu1=0
@@ -288,24 +288,25 @@ elif ((no == 2)); then
   fi
 
   if (($cpu2 < 33)); then
-    forma2="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |__")"
+    forma2="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |________")"
   elif (($cpu2 < 66)); then
-    forma2="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |__")"
+    forma2="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |________")"
   else
-    forma2="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |__")"
+    forma2="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |________")"
   fi
 
   paste -d '' <(echo "$forma1") <(echo "$forma2")
 else
-  cpu1=$(cat history | grep CPU | tail -1 | cut -d' ' -f 3 | cut -d'.' -f1)
+  cpu1=$(cat history | grep memory: | rev | cut -d' ' -f1 | rev| tail -1)
+
   [ ${#cpu1} -lt 1 ] && cpu1=0
 
   if (($cpu1 < 33)); then
-    forma1="$(echo -e "|      \n|      \n|      \n|      \n|   __ \n|  |  |\n|__|  |")"
+    forma1="$(echo -e "|      \n|      \n|      \n|      \n|   __ \n|  |  |\n|__|  |______________")"
   elif (($cpu1 < 66)); then
-    forma1="$(echo -e "|      \n|      \n|   __ \n|  |  |\n|  |  |\n|  |  |\n|__|  |")"
+    forma1="$(echo -e "|      \n|      \n|   __ \n|  |  |\n|  |  |\n|  |  |\n|__|  |______________")"
   else
-    forma1="$(echo -e "|   __ \n|  |  |\n|  |  |\n|  |  |\n|  |  |\n|  |  |\n|__|  |")"
+    forma1="$(echo -e "|   __ \n|  |  |\n|  |  |\n|  |  |\n|  |  |\n|  |  |\n|__|  |______________")"
   fi
 
   echo "$forma1"
