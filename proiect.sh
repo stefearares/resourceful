@@ -144,27 +144,52 @@ fi
 
 
 echo -e "\n"
+
+printf "                                                                        "
+
 paste <(
+
 echo -e "  ${purple} CPU usage graph:${nocolor}"
 
-echo -e " ____________________"
+printf "                                                                         "
+
+echo -e "____________________"
+
+
 
 no=$(cat history | grep CPU | wc -l)
 
+
+
 if (($no > 2)); then
+
   cpus=$(cat history | grep CPU | tail -3 | cut -d' ' -f 3 | cut -d'.' -f1)
 
+
+
   cpu1=$(echo $cpus | cut -d' ' -f1)
+
   [ ${#cpu1} -lt 1 ] && cpu1=0
 
+
+
   cpu2=$(echo $cpus | cut -d' ' -f2)
+
   [ ${#cpu2} -lt 1 ] && cpu2=0
 
+
+
   cpu3=$(echo $cpus | cut -d' ' -f3)
+
   [ ${#cpu3} -lt 1 ] && cpu3=0
 
+
+
   if (($cpu1 < 33)); then
-    forma1="$(echo -e "|      \n|      \n|      \n|      \n|   __ \n|  |  |\n|__|  |")"
+
+     forma1="$(echo -e "                                                                        |      \n                                                                        |      \n                                                                        |      \n                                                                        |      \n                                                                        |   __ \n                                                                        |  |  |\n                                                                        |__|  |")"
+
+
   elif (($cpu1 < 66)); then
     forma1="$(echo -e "|      \n|      \n|   __ \n|  |  |\n|  |  |\n|  |  |\n|__|  |")"
   else
