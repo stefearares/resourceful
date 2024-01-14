@@ -120,85 +120,219 @@ fi
 	
 	no=$(cat history | grep CPU | wc -l)
 
-	if (( $no > 2 ))
-	then
 
-	cpus=$(cat history | grep CPU | tail -3 | cut -d' ' -f 3 | cut -d'.' -f1)
 
-	cpu1=$(echo $cpus | cut -d' ' -f1)
-	cpu2=$(echo $cpus | cut -d' ' -f2)
-	cpu3=$(echo $cpus | cut -d' ' -f3)
+if (( $no > 2 ))
 
-	if (( $cpu1 < 33 ))
-	then
-		forma1="$(echo -e "|      \n|      \n|      \n|      \n|   __ \n|  |  |\n|__|  |")"
+then
+
+
+
+cpus=$(cat history | grep CPU | tail -3 | cut -d' ' -f 3 | cut -d'.' -f1)
+
+
+cpu1=$(echo $cpus | cut -d' ' -f1)
+if (( ${#cpu1} < 1 ))
+then
+cpu1=0
+fi
+
+cpu2=$(echo $cpus | cut -d' ' -f2)
+if (( ${#cpu2} < 1 ))
+        then
+                cpu2=0
+        fi
+
+cpu3=$(echo $cpus | cut -d' ' -f3)
+if (( ${#cpu3} < 1 ))
+        then
+                cpu3=0
+        fi
+
+echo $cpu1
+echo $cpu2
+echo $cpu3
+
+if (( $cpu1 < 33 ))
+
+then
+
+forma1="$(echo -e "|      \n|      \n|      \n|      \n|   __ \n|  |  |\n|__|  |")"
+
+
 
         else
+
+
 
                 if (( $cpu1 < 66 ))
 
+
+
                 then
+
+
 
                         forma1="$(echo -e "|      \n|      \n|   __ \n|  |  |\n|  |  |\n|  |  |\n|__|  |")"
 
+
+
                 else
+
+
 
                         forma1="$(echo -e "|   __ \n|  |  |\n|  |  |\n|  |  |\n|  |  |\n|  |  |\n|__|  |")"
 
+
+
                 fi
-	fi
-	if (( $cpu2 < 33 ))
-	then
-		forma2="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |")"
-	else
-		if (( $cpu2 < 66 ))
-	        then
-        	        forma2="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |")"
-	        else
-                	forma2="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |")"
-        	fi
-	fi
-	if (( $cpu3 < 33 ))
-	then
-        	forma3="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |__")"
-	else
-		if (( $cpu3 < 66 ))
-        	then
-        	        forma3="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |__")"
-	        else
-                	forma3="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |__")"
-        	fi
-	fi
 
-	paste -d '' <(echo "$forma1") <(echo "$forma2") <(echo "$forma3")
-	else 
-	cpus=$(cat history | grep CPU | tail -2 | cut -d' ' -f 3 | cut -d'.' -f1)
+fi
 
-	cpu1=$(echo $cpus | cut -d' ' -f1)
-	cpu2=$(echo $cpus | cut -d' ' -f2)
+if (( $cpu2 < 33 ))
 
-	if (( $cpu1 < 33 ))
+then
+
+forma2="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |")"
+
+else
+
+if (( $cpu2 < 66 ))
+
+       then
+
+               forma2="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |")"
+
+       else
+
+                forma2="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |")"
+
+        fi
+
+fi
+
+if (( $cpu3 < 33 ))
+
+then
+
+        forma3="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |__")"
+
+else
+
+if (( $cpu3 < 66 ))
+
         then
+
+               forma3="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |__")"
+
+       else
+
+                forma3="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |__")"
+
+        fi
+
+fi
+
+
+
+paste -d '' <(echo "$forma1") <(echo "$forma2") <(echo "$forma3")
+
+else if (( $no == 2 ))
+then
+cpus=$(cat history | grep CPU | tail -2 | cut -d' ' -f 3 | cut -d'.' -f1)
+
+cpu1=$(echo $cpus | cut -d' ' -f1)
+        if (( ${#cpu1} < 1 ))
+        then
+                cpu1=0
+        fi
+
+        cpu2=$(echo $cpus | cut -d' ' -f2)
+        if (( ${#cpu2} < 1 ))
+        then
+                cpu2=0
+        fi
+
+
+
+if (( $cpu1 < 33 ))
+
+        then
+
                 forma1="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |")"
+
         else
-		if (( $cpu1 < 66 ))
+
+if (( $cpu1 < 66 ))
+
                 then
+
                         forma1="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |")"
+
                 else
+
                         forma1="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |")"
+
                 fi
-        fi
-	if (( $cpu2 < 33 ))
-        then
-                forma2="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |__")"
-        else
-		if (( $cpu2 < 66 ))
-                then
-                        forma2="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |__")"
-                else
-                        forma2="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |__")"
-                fi
+
         fi
 
-	paste -d '' <(echo "$forma1") <(echo "$forma2")
-	fi
+if (( $cpu2 < 33 ))
+
+        then
+
+                forma2="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |__")"
+
+        else
+
+if (( $cpu2 < 66 ))
+
+                then
+
+                        forma2="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |__")"
+
+                else
+
+                        forma2="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |__")"
+
+                fi
+
+        fi
+
+
+
+paste -d '' <(echo "$forma1") <(echo "$forma2")
+
+
+else
+cpu1=$(cat history | grep CPU | tail -1 | cut -d' ' -f 3 | cut -d'.' -f1)
+
+if (( ${#cpu1} < 1 ))
+      then
+                cpu1=0
+      fi
+
+if (( $cpu1 < 33 ))
+
+        then
+
+               forma1="$(echo -e "      \n      \n      \n      \n   __ \n  |  |\n__|  |")"
+
+      else
+
+                if (( $cpu1 < 66 ))
+
+               then
+
+                        forma1="$(echo -e "      \n      \n   __ \n  |  |\n  |  |\n  |  |\n__|  |")"
+
+                else
+
+                       forma1="$(echo -e "   __ \n  |  |\n  |  |\n  |  |\n  |  |\n  |  |\n__|  |")"
+
+               fi
+
+       fi
+
+echo "$forma1"
+fi
