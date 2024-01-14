@@ -142,8 +142,10 @@ if [ -n "$ios" ]; then
   echo -n "$formatted_line"
 fi
 
+
 echo -e "\n"
 
+paste <(
 echo -e "  ${purple} CPU usage graph:${nocolor}"
 
 echo -e " ____________________"
@@ -227,8 +229,7 @@ else
 
   echo "$forma1"
 fi
-
-echo -e "\n"
+) <(
 
 echo -e "  ${purple} Memory usage graph:${nocolor}"
 
@@ -314,3 +315,4 @@ else
 
   echo "$forma1"
 fi
+)
