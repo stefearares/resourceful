@@ -38,7 +38,7 @@ pack=$(apt-mark showmanual | wc -l)
 network=$(speedtest-cli --simple 2>/dev/null)
 
 if [ $? -ne 0 ]; then
-  network="Network: Not available."
+  network="Network: Not available"
 fi
 
 ios=$(iostat -d | awk '$1 ~ /^(nvme|sda)/ {print $1}')
@@ -58,7 +58,7 @@ if [ "$tester" == "resourceful" ]; then
   echo -n "I/O: " >>history
 
   if [ -n "$ios" ]; then
-    formatted_line=$(echo "$ios" | tr '\n' ' ' | sed 's/,$/./')
+    formatted_line=$(echo "$ios" | tr '\n' ' ' | sed 's/,$/ /')
     echo -n "$formatted_line" >>history
     echo -e "\n" >>history
   fi
@@ -76,10 +76,9 @@ else
   echo -n "I/O: " >>history
 
   if [ -n "$ios" ]; then
-    formatted_line=$(echo "$ios" | tr '\n' ' ' | sed 's/,$/./')
-    echo -n "$formatted_line" >>history
-    echo -e "\n" >>history
-  fi
+        formatted_line=$(echo "$ios" | tr '\n' ', ' | sed 's/,$/ /')
+        echo -n "$formatted_line" >> history;
+        fi
 fi
 
 purple='\033[0;35m'
@@ -123,7 +122,7 @@ printf "%s\n" "$network"
 echo -n "I/O: "
 
 if [ -n "$ios" ]; then
-  formatted_line=$(echo "$ios" | tr '\n' ' ' | sed 's/,$/./')
+  formatted_line=$(echo "$ios" | tr '\n' ', ' | sed 's/,$/ /')
   echo -n "$formatted_line"
 fi
 
