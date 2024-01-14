@@ -512,7 +512,7 @@ fi
 
 
 
-echo -e "  ${purple}Memory usage graph:${nocolor}"
+echo -e "  ${purple}Memory usage graph${nocolor}"
 
 
 
