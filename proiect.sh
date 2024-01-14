@@ -109,30 +109,33 @@ title="resourceful"
 subtitle="-----------"
 
 printf "${purple}%*s${nocolor}\n" $(((${#title} + $COLUMNS) / 2)) "$title"
-printf "${purple}%*s${nocolor}\n" $(((${#title} + $COLUMNS) / 2)) "$subtitle"
-echo "$moment"
-printf "User: ${purple}%s${nocolor}\n" "$who"
-printf "Current Uptime: %s\n" "$up"
+printf "${purple}%*s${nocolor}\n\n" $(((${#title} + $COLUMNS) / 2)) "$subtitle"
+echo   "									$moment"
+printf "									User: ${purple}%s${nocolor}\n" "$who"
+printf "									Current Uptime: %s\n" "$up"
 
 if [ "$cpu_round" -le 33 ]; then
-  printf "CPU usage: ${green}%d%%${nocolor}\n" "$cpu_round"
+  printf "									CPU usage: ${green}%d%%${nocolor}\n" "$cpu_round"
 elif [ "$cpu_round" -le 66 ]; then
-  printf "CPU usage: ${yellow}%d%%${nocolor}\n" "$cpu_round"
+  printf "									CPU usage: ${yellow}%d%%${nocolor}\n"  "$cpu_round"
 else
-  printf "CPU usage: ${red}%d%%${nocolor}\n" "$cpu_round"
+  printf "									CPU usage: ${red}%d%%${nocolor}\n" "$cpu_round"
 fi
 
 if [ "$mem_perc" -le 33 ]; then
-  printf "Used memory: ${green}%s${nocolor} ${green}KBs${nocolor}(${green}%d%%${nocolor}) / Total: %s KBs\n" "$usedmem" "$mem_perc" "$totalmem"
+  printf "									Used memory: ${green}%s${nocolor} ${green}KBs${nocolor}(${green}%d%%${nocolor}) / Total: %s KBs\n" "$usedmem" "$mem_perc" "$totalmem"
 elif [ "$mem_perc" -le 66 ]; then
-  printf "Used memory: ${yellow}%s${nocolor} ${yellow}KBs${nocolor}(${yellow}%d%%${nocolor}) / Total: %s KBs\n" "$usedmem" "$mem_perc" "$totalmem"
+  printf "									Used memory: ${yellow}%s${nocolor} ${yellow}KBs${nocolor}(${yellow}%d%%${nocolor}) / Total: %s KBs\n" "$usedmem" "$mem_perc" "$totalmem"
 else
-  printf "Used memory: ${red}%s${nocolor} ${red}KBs${nocolor}(${red}%s${nocolor}) / Total: %s KBs\n" "$usedmem" "$mem_perc" "$totalmem"
+  printf "									Used memory: ${red}%s${nocolor} ${red}KBs${nocolor}(${red}%s${nocolor}) / Total: %s KBs\n" "$usedmem" "$mem_perc" "$totalmem"
 fi
+printf "									Manually installed packages: %s\n" "$pack"
 
-printf "Manually installed packages: %s\n" "$pack"
-printf "%s\n" "$network"
-echo -n "I/O: "
+while IFS= read -r line; do
+  printf "									%s\n" "$line"
+done <<< "$network"
+#printf "									%s\n" "$network"
+echo -n "									I/O: "
 
 if [ -n "$ios" ]; then
   formatted_line=$(echo "$ios" | tr '\n' ', ' | sed 's/,$/ /')
