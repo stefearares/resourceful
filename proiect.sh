@@ -50,7 +50,7 @@ pack=$(apt-mark showmanual | wc -l)
 network=$(speedtest-cli --simple 2>/dev/null)
 
 if [ $? -ne 0 ]; then
-  network="Network: Not available"
+  network="									Network: Not available"
 fi
 
 ios=$(iostat -d | awk '$1 ~ /^(nvme|sda)/ {print $1}')
