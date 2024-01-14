@@ -70,7 +70,7 @@ if [ "$tester" == "resourceful" ]; then
   echo -n "I/O: " >>history
 
   if [ -n "$ios" ]; then
-    formatted_line=$(echo "$ios" | tr '\n' ' ' | sed 's/,$/ /')
+    formatted_line=$(echo "$ios" | tr '\n' ', ' | sed 's/,$/ /')
     echo -n "$formatted_line" >>history
     echo -e "\n" >>history
   fi
@@ -82,7 +82,7 @@ else
   printf "User: %s\n" "$who" >>history
   printf "Current Uptime: %s\n" "$up" >>history
   printf "CPU usage: %s%%\n" "$cpu" >>history
-  printf "Used memory: %s KBs / Total: %s KBs\n" "$usedmem" "$totalmem" >>history
+  printf "Used memory: %s KBs / Total: %s KBs - %s\n" "$usedmem" "$totalmem" "$mem_perc1" >>history
   printf "Manually installed packages: %s\n" "$pack" >>history
   printf "%s\n" "$network" >>history
   echo -n "I/O: " >>history
@@ -91,6 +91,7 @@ else
         formatted_line=$(echo "$ios" | tr '\n' ', ' | sed 's/,$/ /')
         echo -n "$formatted_line" >> history;
         fi
+  echo -e "\n" >> history;
 fi
 
 purple='\033[0;35m'
