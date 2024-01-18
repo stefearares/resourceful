@@ -194,7 +194,7 @@ pack=$(apt-mark showmanual | wc -l)
 
 
 
-#network=$(speedtest-cli --simple 2>/dev/null)
+network=$(speedtest-cli --simple 2>/dev/null)
 
 
 
