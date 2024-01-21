@@ -12,7 +12,7 @@ and CPU usage. The script has numerous error handling functions and it is built 
 * Install or copy the code in a .sh file.
 * Open the terminal
 * Run `$resourceful.sh` or the name of the file in which you copied the code.
-* Make the file an executable( if you are not sure how just run `$chmod 777 resourceful.sh` or the name of your file.
+* Make the file an executable( if you are not sure how just run `$chmod 777 resourceful.sh` or the name of your file).
 * Run the script with the command `$./resourceful.sh` or the name of your file.
 * The script will prompt a few installations, enter **Y** for each one, otherwise the script won't work.
 * Now the script has created in your **current directory** a new directory named **resourceful** this contains:
