@@ -19,3 +19,5 @@ and CPU usage. The script has numerous error handling functions and it is built 
     * a history file which logs the resources every time you run it
     * the script
 * Now you can run the script again :)
+  
+## The information provided by the script
