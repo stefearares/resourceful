@@ -44,5 +44,6 @@ Each part of the graph has 3 types of states as seen in the image below:
 
 Each individual graph can show from 1 to 3 states depending on how many times the script was ran. The script retrieves the previous usages from the **history** file.
 
+The graph is made using ASCII art in order to make the script lightweight and portable.
 
 
