@@ -33,6 +33,7 @@ The script has numerous error handling functions and it is built to be light wei
 ## The Graph
 
 &nbsp;The script shows on each run two different graphs. These graphs are the CPU usage and the Memory usage graphs.
+
 Each part of the graph has 3 types of states as seen in the image below:
 
 ![Usage graph](DOCUMENTATION/usage_graph.png)
