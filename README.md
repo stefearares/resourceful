@@ -38,4 +38,5 @@ Each part of the graph has 3 types of states as seen in the image below:
 
 ![Usage graph](DOCUMENTATION/usage_graph.png)
 
+Each individual graph can show from 1 to 3 states depending on how many times the script was ran. The script retrieves the previous usages from the **history** file.
 
