@@ -22,3 +22,14 @@ The script has numerous error handling functions and it is built to be light wei
 * Now you can run the script again. :)
   
 ## The information provided by the script
+
+* The name of the user who ran the script.
+* CPU usage (colored depending on how much is used).
+* Memory usage (colored the same way CPU usage is colored) and how much available memory is left.
+* Network information (ping, upload and download speed, if available).
+* Number of manually installed packages.
+* I/O devices such as an SSD or HDD(both of which appear only if available).
+
+## The Graph
+
+
