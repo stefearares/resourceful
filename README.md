@@ -38,5 +38,11 @@ Each part of the graph has 3 types of states as seen in the image below:
 
 ![Usage graph](DOCUMENTATION/usage_graph.png)
 
+* LOW is if the usage is under 33%
+* MEDIUM if the usage is between 33% and 66%
+* HIGH if the usage is over 66%
+
 Each individual graph can show from 1 to 3 states depending on how many times the script was ran. The script retrieves the previous usages from the **history** file.
+
+
 
