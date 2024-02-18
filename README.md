@@ -24,7 +24,7 @@ The script has numerous error handling functions and it is built to be light wei
 ## The information provided by the script
 
 * The name of the user who ran the script.
-* CPU usage (colored depending on how much is used).
+* CPU usage (colored depending on how much is used: green for low, yellow for medium and red for high).
 * Memory usage (colored the same way CPU usage is colored) and how much available memory is left.
 * Network information (ping, upload and download speed, if available).
 * Number of manually installed packages.
@@ -37,3 +37,5 @@ The script has numerous error handling functions and it is built to be light wei
 Each part of the graph has 3 types of states as seen in the image below:
 
 ![Usage graph](DOCUMENTATION/usage_graph.png)
+
+
